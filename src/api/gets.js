@@ -1,3 +1,6 @@
 import { api } from './axios.config'
 
-export const getCenters = token => api.get('/getCenters', { headers: { authorization: `Bearer ${token}` } })
+export const getCenters = async () => {
+  const res = await api.get('/getCenters')
+  return res.data
+}

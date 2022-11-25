@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChartistGraph from 'react-chartist'
 import { login } from '../api/auth'
 // react-bootstrap components
@@ -16,16 +16,12 @@ import {
   OverlayTrigger,
   Tooltip,
 } from 'react-bootstrap'
+import { getCenters } from 'api/gets'
+import useCenters from 'hooks/useCenters'
 
 function Dashboard() {
-  const getToken = async () => {
-    const res = await login()
-    localStorage.setItem('authToken', res.data.token)
-  }
+  const { centersA } = useCenters()
 
-  useEffect(() => {
-    getToken()
-  }, [])
   return (
     <>
       <Container fluid>
@@ -135,8 +131,8 @@ function Dashboard() {
             </Card>
           </Col>
         </Row> */}
-        {/* <Row>
-          <Col md="8">
+        <Row>
+          {/* <Col md="8">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Users Behavior</Card.Title>
@@ -208,41 +204,38 @@ function Dashboard() {
                 </div>
               </Card.Footer>
             </Card>
-          </Col>
-          <Col md="4">
+                  </Col> */}
+          <Col md='6'>
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Email Statistics</Card.Title>
-                <p className="card-category">Last Campaign Performance</p>
+                <Card.Title as='h4'>Email Statistics</Card.Title>
+                <p className='card-category'>Last Campaign Performance</p>
               </Card.Header>
               <Card.Body>
-                <div
-                  className="ct-chart ct-perfect-fourth"
-                  id="chartPreferences"
-                >
+                <div className='ct-chart ct-perfect-fourth' id='chartPreferences'>
                   <ChartistGraph
                     data={{
-                      labels: ["40%", "20%", "40%"],
+                      labels: ['40%', '20%', '40%'],
                       series: [40, 20, 40],
                     }}
-                    type="Pie"
+                    type='Pie'
                   />
                 </div>
-                <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Open <i className="fas fa-circle text-danger"></i>
-                  Bounce <i className="fas fa-circle text-warning"></i>
+                <div className='legend'>
+                  <i className='fas fa-circle text-info'></i>
+                  Open <i className='fas fa-circle text-danger'></i>
+                  Bounce <i className='fas fa-circle text-warning'></i>
                   Unsubscribe
                 </div>
                 <hr></hr>
-                <div className="stats">
-                  <i className="far fa-clock"></i>
+                <div className='stats'>
+                  <i className='far fa-clock'></i>
                   Campaign sent 2 days ago
                 </div>
               </Card.Body>
             </Card>
           </Col>
-        </Row> */}
+        </Row>
         <Row>
           <Col>
             <Card>
