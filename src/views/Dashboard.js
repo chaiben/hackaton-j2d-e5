@@ -1,5 +1,6 @@
-import React from "react";
-import ChartistGraph from "react-chartist";
+import React, { useEffect } from 'react'
+import ChartistGraph from 'react-chartist'
+import { login } from '../api/auth'
 // react-bootstrap components
 import {
   Badge,
@@ -14,9 +15,17 @@ import {
   Form,
   OverlayTrigger,
   Tooltip,
-} from "react-bootstrap";
+} from 'react-bootstrap'
 
 function Dashboard() {
+  const getToken = async () => {
+    const res = await login()
+    localStorage.setItem('authToken', res.data.token)
+  }
+
+  useEffect(() => {
+    getToken()
+  }, [])
   return (
     <>
       <Container fluid>
@@ -235,77 +244,39 @@ function Dashboard() {
           </Col>
         </Row> */}
         <Row>
-          <Col md="6">
+          <Col md='6'>
             <Card>
               <Card.Header>
-                <Card.Title as="h4">2017 Sales</Card.Title>
-                <p className="card-category">All products including Taxes</p>
+                <Card.Title as='h4'>Sales</Card.Title>
+                <p className='card-category'>All products including Taxes</p>
               </Card.Header>
               <Card.Body>
-                <div className="ct-chart" id="chartActivity">
+                <div className='ct-chart' id='chartActivity'>
                   <ChartistGraph
                     data={{
-                      labels: [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "Mai",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec",
-                      ],
+                      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       series: [
-                        [
-                          542,
-                          443,
-                          320,
-                          780,
-                          553,
-                          453,
-                          326,
-                          434,
-                          568,
-                          610,
-                          756,
-                          895,
-                        ],
-                        [
-                          412,
-                          243,
-                          280,
-                          580,
-                          453,
-                          353,
-                          300,
-                          364,
-                          368,
-                          410,
-                          636,
-                          695,
-                        ],
+                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
+                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
                       ],
                     }}
-                    type="Bar"
+                    type='Bar'
                     options={{
                       seriesBarDistance: 10,
                       axisX: {
                         showGrid: false,
                       },
-                      height: "245px",
+                      height: '245px',
                     }}
                     responsiveOptions={[
                       [
-                        "screen and (max-width: 640px)",
+                        'screen and (max-width: 640px)',
                         {
                           seriesBarDistance: 5,
                           axisX: {
                             labelInterpolationFnc: function (value) {
-                              return value[0];
+                              return value[0]
                             },
                           },
                         },
@@ -314,16 +285,16 @@ function Dashboard() {
                   />
                 </div>
               </Card.Body>
-              <Card.Footer>
-                <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Tesla Model S <i className="fas fa-circle text-danger"></i>
-                  BMW 5 Series
-                </div>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-check"></i>
-                  Data information certified
+              <Card.Footer className='d-flex flex-column'>
+                <div className='legend text-center'>
+                  <i className='fas fa-circle text-info'></i>
+                  Bon Digital Talent
+                  <i className='fas fa-circle text-danger ml-3'></i>
+                  MWC Supermercdos
+                  <span style={{ color: '#ffa535' }}>
+                    <i className='fas fa-circle ml-3'></i>
+                  </span>
+                  MercaBDT
                 </div>
               </Card.Footer>
             </Card>
@@ -634,7 +605,7 @@ function Dashboard() {
         </Row>
       </Container>
     </>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard
