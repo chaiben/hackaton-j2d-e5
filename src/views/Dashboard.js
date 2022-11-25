@@ -244,7 +244,7 @@ function Dashboard() {
           </Col>
         </Row> */}
         <Row>
-          <Col md='6'>
+          <Col>
             <Card>
               <Card.Header>
                 <Card.Title as='h4'>Sales</Card.Title>
