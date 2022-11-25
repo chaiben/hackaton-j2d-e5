@@ -20,7 +20,7 @@ function Dashboard() {
   return (
     <>
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col lg="3" sm="6">
             <Card className="card-stats">
               <Card.Body>
@@ -125,8 +125,8 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-        </Row>
-        <Row>
+        </Row> */}
+        {/* <Row>
           <Col md="8">
             <Card>
               <Card.Header>
@@ -233,7 +233,7 @@ function Dashboard() {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col md="6">
             <Card>
@@ -328,7 +328,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-          <Col md="6">
+          {/* <Col md="6">
             <Card className="card-tasks">
               <Card.Header>
                 <Card.Title as="h4">Tasks</Card.Title>
@@ -630,7 +630,7 @@ function Dashboard() {
                 </div>
               </Card.Footer>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>
