@@ -16,11 +16,12 @@ import {
   OverlayTrigger,
   Tooltip,
 } from 'react-bootstrap'
-import { getCenters } from 'api/gets'
 import useCenters from 'hooks/useCenters'
 
 function Dashboard() {
-  const { centersA } = useCenters()
+  const { centersA, centersB, centersC } = useCenters()
+
+  const totalCenters = centersA.length + centersB.length + centersC.length
 
   return (
     <>
@@ -208,24 +209,34 @@ function Dashboard() {
           <Col md='6'>
             <Card>
               <Card.Header>
-                <Card.Title as='h4'>Email Statistics</Card.Title>
+                <Card.Title as='h4'>Centers</Card.Title>
                 <p className='card-category'>Last Campaign Performance</p>
               </Card.Header>
               <Card.Body>
                 <div className='ct-chart ct-perfect-fourth' id='chartPreferences'>
                   <ChartistGraph
                     data={{
-                      labels: ['40%', '20%', '40%'],
-                      series: [40, 20, 40],
+                      labels: [
+                        `${Math.round((centersA.length / totalCenters) * 100)}%`,
+                        `${Math.round((centersB.length / totalCenters) * 100)}%`,
+                        `${Math.round((centersC.length / totalCenters) * 100)}%`,
+                      ],
+                      series: [
+                        centersA.length / totalCenters,
+                        centersB.length / totalCenters,
+                        centersC.length / totalCenters,
+                      ],
                     }}
                     type='Pie'
                   />
                 </div>
-                <div className='legend'>
+                <div className='legend text-center'>
                   <i className='fas fa-circle text-info'></i>
-                  Open <i className='fas fa-circle text-danger'></i>
-                  Bounce <i className='fas fa-circle text-warning'></i>
-                  Unsubscribe
+                  Bon Digital Talent
+                  <i className='fas fa-circle text-danger ml-3'></i>
+                  MWC Supermercdos
+                  <i className='fas fa-circle text-warning ml-3'></i>
+                  MercaBDT
                 </div>
                 <hr></hr>
                 <div className='stats'>
@@ -284,9 +295,7 @@ function Dashboard() {
                   Bon Digital Talent
                   <i className='fas fa-circle text-danger ml-3'></i>
                   MWC Supermercdos
-                  <span style={{ color: '#ffa535' }}>
-                    <i className='fas fa-circle ml-3'></i>
-                  </span>
+                  <i className='fas fa-circle text-warning ml-3'></i>
                   MercaBDT
                 </div>
               </Card.Footer>
