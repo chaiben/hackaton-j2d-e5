@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChartistGraph from 'react-chartist'
-import { login } from '../api/auth'
 // react-bootstrap components
 import {
   Badge,
@@ -16,33 +15,19 @@ import {
   OverlayTrigger,
   Tooltip,
 } from 'react-bootstrap'
-import { map } from 'jquery'
-
-const num_center = [
-  {
-      "center_type": "TYPE_A",
-      "num_orders": "262.3944560466523"
-  },
-  {
-      "center_type": "TYPE_B",
-      "num_orders": "318.856145162319"
-  },
-  {
-      "center_type": "TYPE_C",
-      "num_orders": "206.6700972959947"
-  }
-]
-
-
+import { getTotalSales } from 'api/gets'
 
 function Sales() {
-  const getToken = async () => {
-    const res = await login()
-    localStorage.setItem('authToken', res.data.token)
+  const [allSales, setAllSales] = useState([])
+
+  const fetchAllSales = async () => {
+    const res = await getTotalSales()
+    console.log('total sales: ', res)
+    setAllSales(res)
   }
 
   useEffect(() => {
-    getToken()
+    fetchAllSales()
   }, [])
   return (
     <>
@@ -272,10 +257,8 @@ function Sales() {
                 <div className='ct-chart' id='chartActivity'>
                   <ChartistGraph
                     data={{
-                      labels: num_center.map((center) => center['center_type']),
-                      series: [
-                        num_center.map((center) => center['num_orders']),
-                      ],
+                      labels: allSales.map(center => center.center_type),
+                      series: [allSales.map(center => center.num_orders)],
                     }}
                     type='Bar'
                     options={{

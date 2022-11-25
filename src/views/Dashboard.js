@@ -17,9 +17,21 @@ import {
   Tooltip,
 } from 'react-bootstrap'
 import useCenters from 'hooks/useCenters'
+import { getTotalSales } from 'api/gets'
 
 function Dashboard() {
   const { centersA, centersB, centersC } = useCenters()
+  const [allSales, setAllSales] = useState([])
+
+  const fetchAllSales = async () => {
+    const res = await getTotalSales()
+    console.log('total sales: ', res)
+    setAllSales(res)
+  }
+
+  useEffect(() => {
+    fetchAllSales()
+  }, [])
 
   const totalCenters = centersA.length + centersB.length + centersC.length
 
@@ -238,11 +250,6 @@ function Dashboard() {
                   <i className='fas fa-circle text-warning ml-3'></i>
                   MercaBDT
                 </div>
-                <hr></hr>
-                <div className='stats'>
-                  <i className='far fa-clock'></i>
-                  Campaign sent 2 days ago
-                </div>
               </Card.Body>
             </Card>
           </Col>
@@ -251,19 +258,19 @@ function Dashboard() {
           <Col>
             <Card>
               <Card.Header>
-                <Card.Title as='h4'>Sales</Card.Title>
+                <Card.Title as='h4'>Total Sales</Card.Title>
                 <p className='card-category'>All products including Taxes</p>
               </Card.Header>
               <Card.Body>
                 <div className='ct-chart' id='chartActivity'>
                   <ChartistGraph
                     data={{
-                      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                      series: [
-                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
-                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
-                      ],
+                      labels: allSales.map(center => {
+                        if (center.center_type === 'TYPE_A') return 'Bon Digital Talent'
+                        if (center.center_type === 'TYPE_B') return 'MWC Supermercdos'
+                        if (center.center_type === 'TYPE_C') return 'MercaBDT'
+                      }),
+                      series: [allSales.map(center => center.num_orders)],
                     }}
                     type='Bar'
                     options={{
@@ -277,7 +284,7 @@ function Dashboard() {
                       [
                         'screen and (max-width: 640px)',
                         {
-                          seriesBarDistance: 5,
+                          seriesBarDistance: 2,
                           axisX: {
                             labelInterpolationFnc: function (value) {
                               return value[0]
@@ -289,16 +296,6 @@ function Dashboard() {
                   />
                 </div>
               </Card.Body>
-              <Card.Footer className='d-flex flex-column'>
-                <div className='legend text-center'>
-                  <i className='fas fa-circle text-info'></i>
-                  Bon Digital Talent
-                  <i className='fas fa-circle text-danger ml-3'></i>
-                  MWC Supermercdos
-                  <i className='fas fa-circle text-warning ml-3'></i>
-                  MercaBDT
-                </div>
-              </Card.Footer>
             </Card>
           </Col>
           {/* <Col md="6">

@@ -10,7 +10,7 @@ export const getCheck = async () => {
   return res.data
 }
 
-export const countCorder = async () => {
-  const res = await api.get('/countCorder')
+export const getTotalSales = async () => {
+  const res = await api.get('/numPerCenter')
   return res.data
 }
