@@ -40,6 +40,13 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
+  {
+    path: "/sales",
+    name: "Sales",
+    icon: "nc-icon nc-money-coins",
+    component: Dashboard,
+    layout: "/admin"
+  },
   // {
   //   path: "/user",
   //   name: "User Profile",
