@@ -16,6 +16,24 @@ import {
   OverlayTrigger,
   Tooltip,
 } from 'react-bootstrap'
+import { map } from 'jquery'
+
+const num_center = [
+  {
+      "center_type": "TYPE_A",
+      "num_orders": "262.3944560466523"
+  },
+  {
+      "center_type": "TYPE_B",
+      "num_orders": "318.856145162319"
+  },
+  {
+      "center_type": "TYPE_C",
+      "num_orders": "206.6700972959947"
+  }
+]
+
+
 
 function Sales() {
   const getToken = async () => {
@@ -247,18 +265,16 @@ function Sales() {
           <Col>
             <Card>
               <Card.Header>
-                <Card.Title as='h4'>Sales</Card.Title>
-                <p className='card-category'>All products including Taxes</p>
+                <Card.Title as='h4'>Total Order per Center</Card.Title>
+                <p className='card-category'></p>
               </Card.Header>
               <Card.Body>
                 <div className='ct-chart' id='chartActivity'>
                   <ChartistGraph
                     data={{
-                      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                      labels: num_center.map((center) => center['center_type']),
                       series: [
-                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
-                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
+                        num_center.map((center) => center['num_orders']),
                       ],
                     }}
                     type='Bar'
@@ -273,7 +289,7 @@ function Sales() {
                       [
                         'screen and (max-width: 640px)',
                         {
-                          seriesBarDistance: 5,
+                          seriesBarDistance: 2,
                           axisX: {
                             labelInterpolationFnc: function (value) {
                               return value[0]
@@ -285,7 +301,7 @@ function Sales() {
                   />
                 </div>
               </Card.Body>
-              <Card.Footer className='d-flex flex-column'>
+              {/* <Card.Footer className='d-flex flex-column'>
                 <div className='legend text-center'>
                   <i className='fas fa-circle text-info'></i>
                   Bon Digital Talent
@@ -296,7 +312,7 @@ function Sales() {
                   </span>
                   MercaBDT
                 </div>
-              </Card.Footer>
+              </Card.Footer> */}
             </Card>
           </Col>
           {/* <Col md="6">
