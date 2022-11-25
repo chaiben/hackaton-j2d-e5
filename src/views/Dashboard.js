@@ -25,7 +25,6 @@ function Dashboard() {
 
   const fetchAllSales = async () => {
     const res = await getTotalSales()
-    console.log('total sales: ', res)
     setAllSales(res)
   }
 
