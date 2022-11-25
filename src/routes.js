@@ -23,6 +23,8 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
+import Cousines from "views/Cousines";
+import Sales from "views/Sales";
 
 const dashboardRoutes = [
   // {
@@ -44,7 +46,14 @@ const dashboardRoutes = [
     path: "/sales",
     name: "Sales",
     icon: "nc-icon nc-money-coins",
-    component: Dashboard,
+    component: Sales,
+    layout: "/admin"
+  },
+  {
+    path: "/cousines",
+    name: "Cousines",
+    icon: "nc-icon nc-apple",
+    component: Cousines,
     layout: "/admin"
   },
   // {
